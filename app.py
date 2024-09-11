@@ -1,13 +1,13 @@
 from flask import Flask, url_for, redirect
 app = Flask(__name__)
 
-@app.route("/web")
+@app.route("/lab1/web")
 def web():
     return """<!doctype html>\
         <html>\
             <body>\
                 <h1>web-сервер на flask</h1>\
-                <a href="/author">author</a>\
+                <a href="/lab1/author">author</a>\
                 <a href="/lab1/oak">oak</a>\
                 <a href="/lab1/counter">counter</a>\
                 <a href="/lab1/created">created</a>\
@@ -17,7 +17,7 @@ def web():
             'Content-Type': 'text/plain; charset=utf-8'
         }
 
-@app.route("/author")
+@app.route("lab1//author")
 def author():
     name = "Янсон Андрей Алексеевич"
     group = "ФБИ-21"
@@ -29,7 +29,7 @@ def author():
                 <p>Студент: """ + name + """</p>
                 <p>Группа: """ + group + """</p>
                 <p>Факультет: """ + faculty + """</p>
-                <a href="/web">web</a>
+                <a href="/lab1/web">web</a>
             </body>
         </html>"""
 
@@ -45,7 +45,7 @@ def oak():
             
             <h1>Дуб</h1>
             <img src="''' + path +  '''">
-            <a href="/web">web</a>
+            <a href="/lab1/web">web</a>
         </body>
     </html>
     '''
@@ -61,15 +61,15 @@ def counter():
     <html>
         <body>
             Сколько раз мы сюда заходили: ''' + str(count) + '''
-            <a href="/web">web</a>
+            <a href="/lab1/web">web</a>
             <a href="/lab1/erase">erase</a>
         </body>
     </html>
     '''
 
-@app.route("/info")
+@app.route("/lab1/info")
 def info():
-    return redirect("/author")
+    return redirect("/lab1/author")
 
 @app.route("/lab1/created")
 def created():
@@ -79,7 +79,7 @@ def created():
         <body>
             <h1> Создано успешно</h1>
             <div><i>что-то создано...</i></div>
-            <a href="/web">web</a>
+            <a href="/lab1/web">web</a>
         </body>
     </html>
     ''', 201
