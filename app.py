@@ -17,7 +17,7 @@ def web():
             'Content-Type': 'text/plain; charset=utf-8'
         }
 
-@app.route("lab1//author")
+@app.route("/lab1/author")
 def author():
     name = "Янсон Андрей Алексеевич"
     group = "ФБИ-21"
