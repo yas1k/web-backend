@@ -63,6 +63,23 @@ def lab1():
                 веб-приложений, сознательно предоставляющих лишь самые базовые возможности.
                 </p>
                 <a href ="/">Корень сайта</a>
+                <h2>Список роутов</h2>
+                <a href ="/lab1/web">Сайт "web"</a>
+                <a href ="/lab1/author">Сайт "author"</a>
+                <a href ="/lab1/oak">Сайт "oak"</a>
+                <a href ="/lab1/counter">Сайт "counter"</a>
+                <a href ="/lab1/info">Сайт "info"</a>
+                <a href ="/lab1/created">Сайт "created"</a>
+                <a href ="/lab1/erase">Сайт "erase"</a>
+                <a href ="/lab1/400">Сайт "400"</a>
+                <a href ="/lab1/401">Сайт "401"</a>
+                <a href ="/lab1/402">Сайт "402"</a>
+                <a href ="/lab1/403">Сайт "403"</a>
+                <a href ="/lab1/405">Сайт "405"</a>
+                <a href ="/lab1/418">Сайт "418"</a>
+                <a href ="/lab1/error500">Сайт "error500"</a>
+                <a href ="/lab1/custom">Сайт "custom"</a>
+
             </main>
             <footer>
                 <hr>
