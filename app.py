@@ -6,6 +6,7 @@ def index():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -29,6 +30,7 @@ def index2():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -52,6 +54,7 @@ def lab1():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> Лабораторная работа </title>
         </head>
@@ -93,6 +96,7 @@ def lab1():
 def web():
     return """<!doctype html>\
         <html>\
+        <link rel="stylesheet" href="/static/lab1.css">\
             <body>\
                 <h1>web-сервер на flask</h1>\
                 <a href="/lab1/author">author</a>\
@@ -113,6 +117,7 @@ def author():
 
     return """<!doctype html>
         <html>
+        <link rel="stylesheet" href="/static/lab1.css">
             <body>
                 <p>Студент: """ + name + """</p>
                 <p>Группа: """ + group + """</p>
@@ -128,7 +133,7 @@ def oak():
     return '''
     <!doctype html>
     <html>
-        <link rel="stylesheet" href="static/lab1.css">
+        <link rel="stylesheet" href="/static/lab1.css">
         <body>
             
             <h1>Дуб</h1>
@@ -147,6 +152,7 @@ def counter():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             Сколько раз мы сюда заходили: ''' + str(count) + '''
             <a href="/lab1/web">web</a>
@@ -164,6 +170,7 @@ def created():
     return'''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             <h1> Создано успешно</h1>
             <div><i>что-то создано...</i></div>
@@ -178,6 +185,7 @@ def not_found(err):
     return'''
          <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> Лабораторная работа </title>
         </head>
@@ -203,6 +211,7 @@ def erase():
     return'''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             <h1>Счетчик обнулен</h1>
             <a href="/lab1/counter">counter</a>
@@ -258,6 +267,7 @@ def internal_error(err):
     return '''
     <!DOCTYPE html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title>Ошибка на сервере</title>
         </head>
@@ -277,6 +287,7 @@ def custom_route():
     return '''
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="/static/lab1.css">
 <head>
     <title>НГТУ, ФБ, Лабораторные работы</title>
 </head>
