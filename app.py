@@ -253,3 +253,29 @@ def internal_error(err):
         </body>
     </html>
     ''', 500
+
+@app.route('/lab1/custom')
+def custom_route():
+    path_to_img = url_for('static', filename='oak.jpg')
+    return '''
+<!DOCTYPE html>
+<html>
+<head>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+</head>
+<body>
+    <div>
+        <h1>7 причин почему рыбы хорошие друзья!</h1>
+        <img src=''' + path_to_img + '''>
+        <p>1.Рыбы оказывают на вас очень успокаивающее действие!</p>
+        <p>2.Рыбы многофункциональные рассказчики.</p>
+        <p>3.Рыбы не позволят вам доверять всему и всем</p>
+        <h2>Я думал я перечисляю почему рыбки хорошие друзья, а оказалось в статье писали про знак зодиака... Поэтому я не буду перечислять дальше. Не верю в гороскопы
+    </div>
+</body>
+</html>
+    ''', 200, {
+        'Content-Language': 'ru',
+        'X-Custom-Header-1': '',
+        'X-Custom-Header-2': ''
+    }
