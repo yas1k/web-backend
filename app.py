@@ -6,6 +6,7 @@ def index():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -29,6 +30,7 @@ def index2():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -52,8 +54,9 @@ def lab1():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <head>
-            <title> НГТУ, ФБ, Лабораторные работы </title>
+            <title> Лабораторная работа </title>
         </head>
         <body>
             <main>
@@ -63,6 +66,23 @@ def lab1():
                 веб-приложений, сознательно предоставляющих лишь самые базовые возможности.
                 </p>
                 <a href ="/">Корень сайта</a>
+                <h2>Список роутов</h2>
+                <a href ="/lab1/web">Сайт "web"</a>
+                <a href ="/lab1/author">Сайт "author"</a>
+                <a href ="/lab1/oak">Сайт "oak"</a>
+                <a href ="/lab1/counter">Сайт "counter"</a>
+                <a href ="/lab1/info">Сайт "info"</a>
+                <a href ="/lab1/created">Сайт "created"</a>
+                <a href ="/lab1/erase">Сайт "erase"</a>
+                <a href ="/lab1/400">Сайт "400"</a>
+                <a href ="/lab1/401">Сайт "401"</a>
+                <a href ="/lab1/402">Сайт "402"</a>
+                <a href ="/lab1/403">Сайт "403"</a>
+                <a href ="/lab1/405">Сайт "405"</a>
+                <a href ="/lab1/418">Сайт "418"</a>
+                <a href ="/lab1/error500">Сайт "error500"</a>
+                <a href ="/lab1/custom">Сайт "custom"</a>
+
             </main>
             <footer>
                 <hr>
@@ -76,6 +96,7 @@ def lab1():
 def web():
     return """<!doctype html>\
         <html>\
+        <link rel="stylesheet" href="/static/lab1.css">\
             <body>\
                 <h1>web-сервер на flask</h1>\
                 <a href="/lab1/author">author</a>\
@@ -96,6 +117,7 @@ def author():
 
     return """<!doctype html>
         <html>
+        <link rel="stylesheet" href="/static/lab1.css">
             <body>
                 <p>Студент: """ + name + """</p>
                 <p>Группа: """ + group + """</p>
@@ -111,7 +133,7 @@ def oak():
     return '''
     <!doctype html>
     <html>
-        <link rel="stylesheet" href="static/lab1.css">
+        <link rel="stylesheet" href="/static/lab1.css">
         <body>
             
             <h1>Дуб</h1>
@@ -130,6 +152,7 @@ def counter():
     return '''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             Сколько раз мы сюда заходили: ''' + str(count) + '''
             <a href="/lab1/web">web</a>
@@ -147,6 +170,7 @@ def created():
     return'''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             <h1> Создано успешно</h1>
             <div><i>что-то создано...</i></div>
@@ -157,7 +181,28 @@ def created():
 
 @app.errorhandler(404)
 def not_found(err):
-    return "нет такой страницы", 404
+    path = url_for("static", filename="mistake.jpg")
+    return'''
+         <!doctype html>
+    <html>
+    <link rel="stylesheet" href="/static/lab1.css">
+        <head>
+            <title> Лабораторная работа </title>
+        </head>
+        <body>
+            <main>
+                <h1> Такой страницы не существует!
+                Вы явно что-то перепутали...
+                </h1>
+                <img src="''' + path +  '''">
+            </main>
+            <footer>
+                <hr>
+                &copy; Янсон Андрей, ФБИ-21, 3 курс, 2024 год
+            </footer>
+        </body>    
+    </html>
+     ''', 404
 
 @app.route("/lab1/erase")
 def erase():
@@ -166,6 +211,7 @@ def erase():
     return'''
     <!doctype html>
     <html>
+    <link rel="stylesheet" href="/static/lab1.css">
         <body>
             <h1>Счетчик обнулен</h1>
             <a href="/lab1/counter">counter</a>
@@ -210,3 +256,54 @@ def fhei():
     HTTP код ошибки 418 I'm a teapot сообщает о том,
     что сервер не может приготовить кофе, потому что он чайник.
     ''', 418
+
+@app.route('/lab1/error500')
+def trigger_error():
+    return 1 / 0
+
+@app.errorhandler(500)
+def internal_error(err):
+    path = url_for("static", filename="laugh.jpg")
+    return '''
+    <!DOCTYPE html>
+    <html>
+    <link rel="stylesheet" href="/static/lab1.css">
+        <head>
+            <title>Ошибка на сервере</title>
+        </head>
+        <body>
+            <div>
+                <h1>Произошла ошибка на сервере</h1>
+                <img src="''' + path +  '''">
+                <p>К сожалению, при обработке вашего запроса возникла ошибка. Не вините себя, может когда-нибудь всё наладится...</p>
+            </div>
+        </body>
+    </html>
+    ''', 500
+
+@app.route('/lab1/custom')
+def custom_route():
+    path_to_img = url_for('static', filename='oak.jpg')
+    return '''
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/static/lab1.css">
+<head>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+</head>
+<body>
+    <div>
+        <h1>7 причин почему рыбы хорошие друзья!</h1>
+        <img src=''' + path_to_img + '''>
+        <p>1.Рыбы оказывают на вас очень успокаивающее действие!</p>
+        <p>2.Рыбы многофункциональные рассказчики.</p>
+        <p>3.Рыбы не позволят вам доверять всему и всем</p>
+        <h2>Я думал я перечисляю почему рыбки хорошие друзья, а оказалось в статье писали про знак зодиака... Поэтому я не буду перечислять дальше. Не верю в гороскопы
+    </div>
+</body>
+</html>
+    ''', 200, {
+        'Content-Language': 'ru',
+        'X-Custom-Header-1': '',
+        'X-Custom-Header-2': ''
+    }
