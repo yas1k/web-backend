@@ -1,4 +1,5 @@
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, request
+import datetime
 app = Flask(__name__)
 
 @app.route("/index")
@@ -69,7 +70,7 @@ def lab1():
                 <h2>Список роутов</h2>
                 <a href ="/lab1/web">Сайт "web"</a>
                 <a href ="/lab1/author">Сайт "author"</a>
-                <a href ="/lab1/oak">Сайт "oak"</a>
+                <a href ="/lab1/image">Сайт "oak"</a>
                 <a href ="/lab1/counter">Сайт "counter"</a>
                 <a href ="/lab1/info">Сайт "info"</a>
                 <a href ="/lab1/created">Сайт "created"</a>
@@ -112,7 +113,7 @@ def web():
 @app.route("/lab1/author")
 def author():
     name = "Янсон Андрей Алексеевич"
-    group = "ФБИ-21"
+    group = "ФБИ-31"
     faculty = "ФБ"
 
     return """<!doctype html>
@@ -126,7 +127,7 @@ def author():
             </body>
         </html>"""
 
-@app.route('/lab1/oak')
+@app.route('/lab1/image')
 def oak():
     path = url_for("static", filename="oak.jpg")
     css= url_for("static", filename ="lab1.css")
@@ -141,7 +142,9 @@ def oak():
             <a href="/lab1/web">web</a>
         </body>
     </html>
-    '''
+    ''', {
+            'Content-language': 'ru'
+        }
 
 count = 0
 
@@ -149,6 +152,9 @@ count = 0
 def counter():
     global count
     count += 1
+    time = datetime.datetime.today()
+    url = request.url
+    client_ip = request.remote_addr
     return '''
     <!doctype html>
     <html>
@@ -157,6 +163,10 @@ def counter():
             Сколько раз мы сюда заходили: ''' + str(count) + '''
             <a href="/lab1/web">web</a>
             <a href="/lab1/erase">erase</a>
+            <hr>
+            Дата и время: ''' + str(time) + '''<br>
+            Запрошенный адрес: ''' + url + '''<br>
+            Ваш IP адресс: ''' + client_ip + '''<br>
         </body>
     </html>
     '''
