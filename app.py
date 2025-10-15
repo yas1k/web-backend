@@ -317,3 +317,11 @@ def custom_route():
         'X-Custom-Header-1': '',
         'X-Custom-Header-2': ''
     }
+
+@app.route('/lab2/a')
+def a():
+    return 'без слеша'
+
+@app.route('/lab2/a/')
+def a2():
+    return 'со слешэм'
