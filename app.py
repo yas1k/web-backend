@@ -405,4 +405,8 @@ def no_flowers():
     <p> Вы очистили список цветов </p>
     <a href ="/lab2/all_flowers">Все цветы</a>
 '''
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calculator():
+    
+    return render_template('calc.html')
     
