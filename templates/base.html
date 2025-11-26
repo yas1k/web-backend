@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,3 +22,26 @@
     </footer>
 </body>
 </html>
+=======
+<html lang ="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Янсон Андрей. {% block lab %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='lab1.css')}}">
+    </head>
+    <body>
+        <header>
+            Web-Программирование, часть 2. {{ self.lab() }}
+        </header>
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer>
+            &copy; Янсон Андрей, ФБИ-31, 3 курс, 2025
+        </footer>
+    </body>
+</html>
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634

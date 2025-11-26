@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from flask import Flask, url_for, redirect, render_template
+=======
+from flask import Flask, url_for, redirect, request, abort, render_template
+import datetime
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
 app = Flask(__name__)
 
 @app.route("/index")
@@ -69,7 +74,7 @@ def lab1():
                 <h2>Список роутов</h2>
                 <a href ="/lab1/web">Сайт "web"</a>
                 <a href ="/lab1/author">Сайт "author"</a>
-                <a href ="/lab1/oak">Сайт "oak"</a>
+                <a href ="/lab1/image">Сайт "oak"</a>
                 <a href ="/lab1/counter">Сайт "counter"</a>
                 <a href ="/lab1/info">Сайт "info"</a>
                 <a href ="/lab1/created">Сайт "created"</a>
@@ -112,7 +117,7 @@ def web():
 @app.route("/lab1/author")
 def author():
     name = "Янсон Андрей Алексеевич"
-    group = "ФБИ-21"
+    group = "ФБИ-31"
     faculty = "ФБ"
 
     return """<!doctype html>
@@ -126,7 +131,7 @@ def author():
             </body>
         </html>"""
 
-@app.route('/lab1/oak')
+@app.route('/lab1/image')
 def oak():
     path = url_for("static", filename="oak.jpg")
     css= url_for("static", filename ="lab1.css")
@@ -141,7 +146,9 @@ def oak():
             <a href="/lab1/web">web</a>
         </body>
     </html>
-    '''
+    ''', {
+            'Content-language': 'ru'
+        }
 
 count = 0
 
@@ -149,6 +156,9 @@ count = 0
 def counter():
     global count
     count += 1
+    time = datetime.datetime.today()
+    url = request.url
+    client_ip = request.remote_addr
     return '''
     <!doctype html>
     <html>
@@ -157,6 +167,10 @@ def counter():
             Сколько раз мы сюда заходили: ''' + str(count) + '''
             <a href="/lab1/web">web</a>
             <a href="/lab1/erase">erase</a>
+            <hr>
+            Дата и время: ''' + str(time) + '''<br>
+            Запрошенный адрес: ''' + url + '''<br>
+            Ваш IP адресс: ''' + client_ip + '''<br>
         </body>
     </html>
     '''
@@ -310,17 +324,26 @@ def custom_route():
 
 @app.route('/lab2/a')
 def a():
+<<<<<<< HEAD
     return 'без слэша'
 
 @app.route('/lab2/a/')
 def a2():
     return 'со слэшем'
+=======
+    return 'без слеша'
+
+@app.route('/lab2/a/')
+def a2():
+    return 'со слешэм'
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
 
 flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
 
 @app.route('/lab2/flowers/<int:flower_id>')
 def flowers(flower_id):
     if flower_id >= len(flower_list):
+<<<<<<< HEAD
         return "Такого цветка нет", 404
     else:
         return f'''
@@ -339,6 +362,21 @@ def flowers(flower_id):
             </body>
         </html>
         '''
+=======
+        abort(404)
+    else:
+        return f'''
+    <!doctype html>
+    <html>
+        <body>
+        <h1> Вы успешно выбрали конкретный цветок из списка </h1>
+        <p>Выбранный вами цветок: {flower_list[flower_id]}
+        <a href ="/lab2/all_flowers">Все цветы</a>
+        </body>
+    </html>
+    
+    '''
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
 
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
@@ -355,6 +393,7 @@ def add_flower(name):
 </html>
 '''
 
+<<<<<<< HEAD
 @app.route('/lab2/add_flower/')
 def no_flower():
     return f'''
@@ -428,6 +467,19 @@ def example():
     return render_template('example.html',
                            name=name, number=number, group=group,
                            course=course, fruits=fruits)
+=======
+@app.route('/lab2/example')
+def example():
+    name, lab_num,  group,  course_num  ='Янсон Андрей', '2', 'ФБИ-31',  '3'
+    fruits = [
+        {'name': 'Яблоки', 'price': 100},
+        {'name': 'Груши', 'price': 120},
+        {'name': 'Апельсины', 'price': 80},
+        {'name': 'Мандарины', 'price': 95},
+        {'name': 'Манго', 'price': 321}
+        ]
+    return render_template('example.html', name=name, lab_num=lab_num, group=group, course_num=course_num, fruits=fruits)
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
 
 @app.route('/lab2/')
 def lab2():
@@ -435,5 +487,40 @@ def lab2():
 
 @app.route('/lab2/filters')
 def filters():
+<<<<<<< HEAD
     phrase = "О сколько нам открытий чудных..."
     return render_template('filter.html', phrase=phrase)
+=======
+    phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
+    return render_template('filter.html', phrase = phrase)
+
+@app.route('/lab2/add_flower/')
+def noname():
+    return'''
+    УЖАС! ВЫ ЗАБЫЛИ ЗАДАТЬ ИМЯ ЦВЕТКА! НА ЧТО ВЫ РАССЧИТЫВАЛИ?
+    ''', 400
+@app.route('/lab2/all_flowers')
+def all_flowers():
+    return f'''
+<!doctype html>
+<html>
+    <body>
+    <p> Количество цветов: {len(flower_list)} </p>
+    <p> Полный список всех цветов: {flower_list} </p>
+    </body>
+</html>
+'''
+@app.route('/lab2/no_flowers')
+def no_flowers():
+    global flower_list
+    flower_list = []
+    return f'''
+    <p> Вы очистили список цветов </p>
+    <a href ="/lab2/all_flowers">Все цветы</a>
+'''
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calculator():
+    
+    return render_template('calc.html')
+    
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634

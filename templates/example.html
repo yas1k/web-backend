@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title> {% if name %} {{ name }}. {% else %} Анонимус. {% endif %} Лабораторная работа {{ number }}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='main.css') }}">
 </head>
@@ -20,11 +21,31 @@
         <ul>
             {% for f in fruits %}
             <li>{{loop.index}} - {{f.name}}: {{f.price}}&#x20bd;</li>
+=======
+    <title>{% if name%} {{name}} {%else%} Анонимус {% endif %}. Лабораторная работа {{lab_num}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lab1.css')}}">
+</head>
+<body>
+    <header>
+        Web-Программирование часть 2. {% if lab_num %}Лабораторная работа {{lab_num}} {% endif %}
+    </header>
+
+    <main>
+        5 + 2 = {{5 + 2}}<br>
+        11 X 28 = {{11 * 28}}<br>
+        3258 - 759 = {{3258-759}}<br>
+        8452 / 793 = {{8452/793}}<br>
+        45<sup>8</sup> = {{45**8}}
+        <ul>
+            {% for f in fruits %}
+            <li>{{ loop.index }} - {{ f.name }}: {{ f.price }} &#x20bd; </li>
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
             {% endfor %}
         </ul>
     </main>
 
     <footer>
+<<<<<<< HEAD
         &copy; 
         {% if name %}
             {{ name }},
@@ -42,6 +63,16 @@
             Информация о курсе конфиденциальна,
         {% endif %} 
         2024
+=======
+        &copy;
+        {% if name%}
+            {{name}},
+        {%else%}
+            Анонимус
+        {% endif %}
+        {% if group%} {{group}} {%else%} Group Unknown {% endif %},
+        {% if course_num%} {{course_num}} {%else%} Неизвестный {% endif %} курс, 2025
+>>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
     </footer>
 </body>
 </html>
