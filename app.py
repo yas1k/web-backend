@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 from flask import Flask, url_for, redirect, render_template
-=======
 from flask import Flask, url_for, redirect, request, abort, render_template
 import datetime
->>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
 app = Flask(__name__)
 
 @app.route("/index")
@@ -324,26 +321,25 @@ def custom_route():
 
 @app.route('/lab2/a')
 def a():
-<<<<<<< HEAD
+
     return 'без слэша'
 
 @app.route('/lab2/a/')
 def a2():
     return 'со слэшем'
-=======
+
     return 'без слеша'
 
 @app.route('/lab2/a/')
 def a2():
     return 'со слешэм'
->>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
+
 
 flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
 
 @app.route('/lab2/flowers/<int:flower_id>')
 def flowers(flower_id):
     if flower_id >= len(flower_list):
-<<<<<<< HEAD
         return "Такого цветка нет", 404
     else:
         return f'''
@@ -361,22 +357,7 @@ def flowers(flower_id):
                 <a href="/lab2/add_flower/">Добавить новый цветок</a>
             </body>
         </html>
-        '''
-=======
-        abort(404)
-    else:
-        return f'''
-    <!doctype html>
-    <html>
-        <body>
-        <h1> Вы успешно выбрали конкретный цветок из списка </h1>
-        <p>Выбранный вами цветок: {flower_list[flower_id]}
-        <a href ="/lab2/all_flowers">Все цветы</a>
-        </body>
-    </html>
-    
-    '''
->>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
+        '''      
 
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
@@ -393,7 +374,7 @@ def add_flower(name):
 </html>
 '''
 
-<<<<<<< HEAD
+
 @app.route('/lab2/add_flower/')
 def no_flower():
     return f'''
@@ -467,7 +448,7 @@ def example():
     return render_template('example.html',
                            name=name, number=number, group=group,
                            course=course, fruits=fruits)
-=======
+
 @app.route('/lab2/example')
 def example():
     name, lab_num,  group,  course_num  ='Янсон Андрей', '2', 'ФБИ-31',  '3'
@@ -479,7 +460,7 @@ def example():
         {'name': 'Манго', 'price': 321}
         ]
     return render_template('example.html', name=name, lab_num=lab_num, group=group, course_num=course_num, fruits=fruits)
->>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
+
 
 @app.route('/lab2/')
 def lab2():
@@ -487,10 +468,10 @@ def lab2():
 
 @app.route('/lab2/filters')
 def filters():
-<<<<<<< HEAD
+
     phrase = "О сколько нам открытий чудных..."
     return render_template('filter.html', phrase=phrase)
-=======
+
     phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
     return render_template('filter.html', phrase = phrase)
 
@@ -523,4 +504,3 @@ def calculator():
     
     return render_template('calc.html')
     
->>>>>>> 124ea94705dafa8ee8f5c1fabae0a19ba9e04634
