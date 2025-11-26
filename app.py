@@ -441,3 +441,20 @@ def calc():
 def calc_one(a):
     return redirect(f'/lab2/calc/{a}/1')
     
+books = [
+    {"author": "Лев Толстой", "title": "Война и мир", "genre": "Роман", "pages": 1225},
+    {"author": "Фёдор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
+    {"author": "Михаил Булгаков", "title": "Мастер и Маргарита", "genre": "Фантастика", "pages": 470},
+    {"author": "Лев Толстой", "title": "Анна Каренина", "genre": "Роман", "pages": 864},
+    {"author": "Борис Пастернак", "title": "Доктор Живаго", "genre": "Роман", "pages": 704},
+    {"author": "Александр Пушкин", "title": "Евгений Онегин", "genre": "Поэма", "pages": 240},
+    {"author": "Фёдор Достоевский", "title": "Идиот", "genre": "Роман", "pages": 640},
+    {"author": "Иван Гончаров", "title": "Обломов", "genre": "Роман", "pages": 560},
+    {"author": "Николай Гоголь", "title": "Мёртвые души", "genre": "Роман", "pages": 352},
+    {"author": "Антон Чехов", "title": "Чайка", "genre": "Пьеса", "pages": 120}
+]
+
+
+@app.route('/lab2/books')
+def show_books():
+    return render_template('books.html', books=books)
