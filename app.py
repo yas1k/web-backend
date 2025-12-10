@@ -17,7 +17,7 @@ def index2():
     return '''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -41,11 +41,11 @@ def index2():
 
 @app.errorhandler(404)
 def not_found(err):
-    path = url_for("static", filename="mistake.jpg")
+    path = url_for("static", filename="lab1/mistake.jpg")
     return'''
          <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <head>
             <title> Лабораторная работа </title>
         </head>
@@ -67,11 +67,11 @@ def not_found(err):
 
 @app.errorhandler(500)
 def internal_error(err):
-    path = url_for("static", filename="laugh.jpg")
+    path = url_for("static", filename="lab1/laugh.jpg")
     return '''
     <!DOCTYPE html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <head>
             <title>Ошибка на сервере</title>
         </head>

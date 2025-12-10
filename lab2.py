@@ -56,17 +56,17 @@ def example():
         {'name': 'Мандарины', 'price': 95},
         {'name': 'Манго', 'price': 321}
         ]
-    return render_template('example.html', name=name, lab_num=lab_num, group=group, course_num=course_num, fruits=fruits)
+    return render_template('lab2/example.html', name=name, lab_num=lab_num, group=group, course_num=course_num, fruits=fruits)
 
 
 @lab2.route('/lab2/')
 def lab2_index():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 @lab2.route('/lab2/filters')
 def filters():
     phrase = "О сколько нам открытий чудных..."
-    return render_template('filter.html', phrase=phrase)
+    return render_template('lab2/filter.html', phrase=phrase)
 
 @lab2.route('/lab2/add_flower/')
 def noname():
@@ -139,7 +139,7 @@ books = [
 
 @lab2.route('/lab2/books')
 def show_books():
-    return render_template('books.html', books=books)
+    return render_template('lab2/books.html', books=books)
 
 places = [
     {"name": "Собор Александра Невского", "description": "Был построен аж в 1899 году!", "image":"sobor.jfif"},
@@ -152,4 +152,4 @@ places = [
 
 @lab2.route('/lab2/places')
 def show_places():
-    return render_template('places.html', places=places)
+    return render_template('lab2/places.html', places=places)

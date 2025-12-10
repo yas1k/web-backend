@@ -9,7 +9,7 @@ def index():
     return '''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <head>
             <title> НГТУ, ФБ, Лабораторные работы </title>
         </head>
@@ -39,7 +39,7 @@ def lab_1():
     return '''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <head>
             <title> Лабораторная работа </title>
         </head>
@@ -82,7 +82,7 @@ def lab_1():
 def web():
     return """<!doctype html>\
         <html>\
-        <link rel="stylesheet" href="/static/lab1.css">\
+        <link rel="stylesheet" href="/static/lab1/lab1.css">\
             <body>\
                 <h1>web-сервер на flask</h1>\
                 <a href="/lab1/author">author</a>\
@@ -104,7 +104,7 @@ def author():
 
     return """<!doctype html>
         <html>
-        <link rel="stylesheet" href="/static/lab1.css">
+        <link rel="stylesheet" href="/static/lab1/lab1.css">
             <body>
                 <p>Студент: """ + name + """</p>
                 <p>Группа: """ + group + """</p>
@@ -116,12 +116,12 @@ def author():
 
 @lab1.route('/lab1/image')
 def oak():
-    path = url_for("static", filename="oak.jpg")
-    css= url_for("static", filename ="lab1.css")
+    path = url_for("static", filename="lab1/oak.jpg")
+    css= url_for("static", filename ="lab1/lab1.css")
     return '''
     <!doctype html>
     <html>
-        <link rel="stylesheet" href="/static/lab1.css">
+        <link rel="stylesheet" href="/static/lab1/lab1.css">
         <body>
             
             <h1>Дуб</h1>
@@ -146,7 +146,7 @@ def counter():
     return '''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <body>
             Сколько раз мы сюда заходили: ''' + str(count) + '''
             <a href="/lab1/web">web</a>
@@ -170,7 +170,7 @@ def created():
     return'''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <body>
             <h1> Создано успешно</h1>
             <div><i>что-то создано...</i></div>
@@ -187,7 +187,7 @@ def erase():
     return'''
     <!doctype html>
     <html>
-    <link rel="stylesheet" href="/static/lab1.css">
+    <link rel="stylesheet" href="/static/lab1/lab1.css">
         <body>
             <h1>Счетчик обнулен</h1>
             <a href="/lab1/counter">counter</a>
@@ -247,11 +247,11 @@ def trigger_error():
 
 @lab1.route('/lab1/custom')
 def custom_route():
-    path_to_img = url_for('static', filename='oak.jpg')
+    path_to_img = url_for('static', filename='lab1/oak.jpg')
     return '''
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="/static/lab1.css">
+<link rel="stylesheet" href="/static/lab1/lab1.css">
 <head>
     <title>НГТУ, ФБ, Лабораторные работы</title>
 </head>
