@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, make_response, redirect
+from datetime import datetime
 
 lab3 = Blueprint('lab3', __name__)
 
@@ -62,6 +63,13 @@ def pay():
     
     return render_template('lab3/pay.html', price=price)
 
+
+@lab3.route('/lab3/success')
+def success():
+    price = request.args.get('price', 0)  # Получаем цену из URL параметра
+    return render_template('lab3/success.html', price=price)
+
+
 @lab3.route('/lab3/settings')
 def settings():
     # Считываем параметры из запроса
@@ -84,3 +92,65 @@ def settings():
     background = request.cookies.get('background')
     font_size = request.cookies.get('font_size')
     return render_template('lab3/settings.html', color=color, background=background, font_size=font_size)
+
+@lab3.route('/lab3/tickets')
+def ticket_order():
+
+    today = datetime.now().strftime('%Y-%m-%d')
+
+    errors = {}
+
+    seat = request.args.get('seat', '')  # Возвращаем пустую строку, если параметр не передан
+    travel_date = request.args.get('travel_date', '')
+    departure = request.args.get('departure')
+    destination = request.args.get('destination')
+
+    if departure == destination:
+        errors['destination'] = 'Ошибка! Города не могут совпадать!'
+
+        errors = {}
+    user = request.args.get('user')
+    if user == '':
+        errors['user'] = 'Заполните поле!'
+
+    age = request.args.get('age')
+    if age == '':
+        errors['age'] = 'Заполните поле!'
+
+
+    return render_template('lab3/tickets.html', user=user, age=age, seat=seat, departure=departure, destination=destination, 
+    travel_date=travel_date, today=today, errors=errors)
+
+
+@lab3.route('/lab3/tickets_result')
+def tickets_result():
+    price = 0
+
+    user = request.args.get('user')
+    age = request.args.get('age')
+    seat = request.args.get('seat')
+    departure = request.args.get('departure')
+    destination = request.args.get('destination')
+    travel_date = request.args.get('travel_date')
+
+    # Определяем, детский ли билет
+    if int(age) < 18:
+        is_child = True
+        price += 700
+    else:
+        is_child = False
+        price += 1000
+
+    # Дополнительные цены
+    if seat in ['lowwer', 'lowwer_side']:
+        price += 100 
+    if request.args.get('sheets') == 'on':
+        price += 75 
+    if request.args.get('baggage') == 'on':
+        price += 250 
+    if request.args.get('insurance') == 'on':
+        price += 150 
+
+    return render_template('lab3/ticket_result.html', user=user, age=age, seat=seat, departure=departure, 
+    destination=destination, travel_date=travel_date,
+     is_child=is_child, price=price)

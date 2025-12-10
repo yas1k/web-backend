@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+
+    <form action="/lab3/tickets_result">
+        <label>Как вас зовут?:</label>
+        <div> 
+            <input type="text" name="user" value="{{ user or '' }}">
+            <span class="error">{{ errors.user }}</span>
+        </div>
+
+        <label>Ваш возраст:</label>
+        <div> 
+            <input type="number" name="age" min="1" max = "120" value="{{ age or '' }}">
+            <span class="error">{{ errors.age }}</span>
+        </div>    
+
+        <br>
+        <label>Выберите полку:</label>
+        <div> 
+            <select name="seat" required> 
+                <option value="lowwer">нижняя</option>
+                <option value="upper">верхняя</option>
+                <option value="upper_side">верхняя боковая (+100 рублей)</option>
+                <option value="lowwer_side">нижняя боковая (+100 рублей)</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="departure">Пункт выезда:</label>
+            <select name="departure" required>
+                <option value="Москва">Москва</option>
+                <option value="Санкт-Петербург">Санкт-Петербург</option>
+                <option value="Новосибирск">Новосибирск</option>
+                <option value="Екатеринбург">Екатеринбург</option>
+                <option value="Нижний Новгород">Нижний Новгород</option>
+                <option value="Казань">Казань</option>
+                <option value="Челябинск">Челябинск</option>
+                <option value="Омск">Омск</option>
+                <option value="Самара">Самара</option>
+                <option value="Ростов-на-Дону">Ростов-на-Дону</option>
+                <option value="Уфа">Уфа</option>
+                <option value="Красноярск">Красноярск</option>
+                <option value="Пермь">Пермь</option>
+                <option value="Воронеж">Воронеж</option>
+                <option value="Волгоград">Волгоград</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="destination">Пункт назначения:</label>
+            <select name="destination" required>
+                <option value="Москва">Москва</option>
+                <option value="Санкт-Петербург">Санкт-Петербург</option>
+                <option value="Новосибирск">Новосибирск</option>
+                <option value="Екатеринбург">Екатеринбург</option>
+                <option value="Нижний Новгород">Нижний Новгород</option>
+                <option value="Казань">Казань</option>
+                <option value="Челябинск">Челябинск</option>
+                <option value="Омск">Омск</option>
+                <option value="Самара">Самара</option>
+                <option value="Ростов-на-Дону">Ростов-на-Дону</option>
+                <option value="Уфа">Уфа</option>
+                <option value="Красноярск">Красноярск</option>
+                <option value="Пермь">Пермь</option>
+                <option value="Воронеж">Воронеж</option>
+                <option value="Волгоград">Волгоград</option>
+                <span class="error">{{ errors.destination }}</span>
+            </select>
+        </div>
+
+        <div>
+            <label for="travel_date">Дата поездки:</label>
+            <input type="date" name="travel_date" min="{{ today }}" required>
+            <span class="error">{{ errors.travel_date }}</span>
+        </div>
+        <br>
+
+        <div>
+            <h3>Дополнительно:</h3>
+            <label>
+                <input type="checkbox" name="sheets">Бельё (+75 рублей)
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" name="baggage">Багаж (+250 рублей)
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" name="insurance">Страховка (+150 рублей)
+            </label>
+        </div>
+        <br>
+        
+        <div>
+            <button type="submit">Оформить</button>
+        </div>
+    </form>
+{% endblock %}

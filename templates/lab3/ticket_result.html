@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Ваш билет</h1>
+
+    <div>
+        Пассажир: {{ user }}<br>
+        Возраст: {{ age }}<br>
+        {% if is_child %}
+            <span style="color: red;">Детский билет</span><br>
+        {% endif %}
+    </div>
+
+    <div>
+        Маршрут: {{ departure }} -> {{ destination }}<br>
+        Дата поездки: {{ travel_date }}<br>
+    </div>
+
+    <div>
+        Полка: 
+        {% if seat == 'lowwer' %}
+            Нижняя
+        {% elif seat == 'upper' %}
+            Верхняя
+        {% elif seat == 'lowwer_side' %}
+            Нижняя боковая (+100 рублей)
+        {% else %}
+            Верхняя боковая (+100 рублей)
+        {% endif %}
+    </div>
+
+    <div>
+        Дополнительно: 
+        <ul>
+            {% if request.args.get('sheets') == 'on' %}
+                <li>С бельём (+75 рублей)</li>
+            {% endif %}
+            {% if request.args.get('baggage') == 'on' %}
+                <li>С багажом (+250 рублей)</li>
+            {% endif %}
+            {% if request.args.get('insurance') == 'on' %}
+                <li>Со страховкой (+150 рублей)</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div>
+        Стоимость билета: {{ price }} рублей
+    </div>
+
+
+    <br>
+    <a href="/lab3/tickets">Вернуться к оформлению</a>
+{% endblock %}
