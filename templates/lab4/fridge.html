@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block lab %}Управление температурой холодильника{% endblock %}
+
+{% block main %}
+    <h1>Холодильник</h1>
+    
+    <form method="post">
+        <label for="temperature">Установить температуру (°C):</label>
+        <input type="number" id="temperature" name="temperature">
+        <button type="submit">Установить</button>
+    </form>
+    
+    {% if error %}
+        <div style="color: red; font-weight: bold;">{{ error }}</div>
+    {% endif %}
+    
+    {% if temperature is not none %}
+        <div style="color: green; font-weight: bold;">Установлена температура: {{ temperature }}°C</div>
+        {% if snowflakes == 3 %}
+            <span style="color: blue;">***</span>
+        {% elif snowflakes == 2 %}
+            <span style="color: blue;">**</span>
+        {% elif snowflakes == 1 %}
+            <span style="color: blue;">*</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}
