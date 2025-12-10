@@ -2,13 +2,15 @@ from flask import Flask, url_for, redirect, request, abort, render_template
 import datetime
 import os
 
-from lab2 import lab2
 from lab1 import lab1
+from lab2 import lab2
+from lab3 import lab3
 
 app = Flask(__name__)
 
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
+app.register_blueprint(lab3)
 
 @app.route("/")
 def index2():
@@ -27,6 +29,7 @@ def index2():
             <main>
                 <a href="/lab1">Первая лабораторная работа</a>
                 <a href="/lab2/">Вторая лабораторная работа</a>
+                <a href="/lab3/">Третья лабораторная работа</a>
             </main>
             <footer>
                 <hr>
