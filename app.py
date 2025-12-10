@@ -9,6 +9,12 @@ from lab4 import lab4
 
 app = Flask(__name__)
 
+
+app.config['SECRET_KEY'] = os.environ.get('SECRT_KEY', 'секретно-секретный секрет')
+app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
+#app.secret_key = 'секретно-секретный секрет'
+
+
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
