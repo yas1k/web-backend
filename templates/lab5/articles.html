@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block lab %}Мои статьи{% endblock %}
+
+{% block main %}
+<h1>Мои статьи</h1>
+
+{% if message %}
+    <p style="color: red;">{{ message }}</p>
+{% endif %}
+
+{% for article in articles %}
+    <div>
+        <h2>{{ article['titke'] }}</h2>
+        <p>{{ article['article_text'] }}</p>
+        <p>Публичный доступ: {% if article['is_public'] %}Да{% else %}Нет{% endif %}</p>
+        <p>Нравится: {% if article['is_favorite'] %}Да{% else %}Нет{% endif %}</p>
+        <a href="/lab5/edit/{{ article['id'] }}">Редактировать</a> | 
+        <a href="/lab5/delete/{{ article['id'] }}">Удалить</a>
+    </div>
+{% endfor %}
+
+{% endblock %}
