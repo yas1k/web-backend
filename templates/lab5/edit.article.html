@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block lab %}Редактирование статьи{% endblock %}
+
+{% block main %}
+<h1>Редактирование статьи</h1>
+<form method="post">
+    <div>
+        <label>Название статьи: 
+            <input type="text" maxlength="50" name="title" value="{{ article['titke'] }}" required>
+        </label>
+    </div>
+    <div>
+        <textarea name="article_text" required>{{ article['article_text'] }}</textarea>
+    </div>
+    <div>
+        <label>Публичный доступ: 
+            <input type="checkbox" name="is_public" {% if article['is_public'] %}checked{% endif %}>
+        </label>
+    </div>
+    <div>
+        <label>Нравится:
+            <input type="checkbox" name="is_favorite" {% if article['is_favorite'] %}checked{% endif %}>
+        </label>
+    </div>
+    <div>
+        <button type="submit">Сохранить</button>
+    </div>
+</form>
+{% endblock %}
