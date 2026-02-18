@@ -2,5 +2,105 @@
 
 {% block lab %}Лабораторная работа 6{% endblock %}
 
-{%block main%}
-{%endblock%}
+{% block script %}
+<script>
+function getOfficeList() {
+    const url = '/lab6/json-rpc-api/';
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'info',
+        'id': Math.round(Math.random()*1000)
+    };
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        const office_list = data.result;
+        const ul = document.getElementById('office-list');
+        ul.innerHTML = '';
+        let totalCost = 0; 
+
+        for(let i = 0; i < office_list.length; i++) {
+            const office = office_list[i];
+            const li = document.createElement('li');
+            li.className = 'office-item';
+            li.innerText = `Офис ${office.number}: ${office.tenant || 'свободен'} - ${office.price} руб./мес.`;
+
+            const bookingButton = document.createElement('button');
+             bookingButton.className = 'book-btn';
+            bookingButton.innerText = 'зарезервировать';
+            bookingButton.onclick = function() {booking(office.number)};
+            li.appendChild(bookingButton);
+            
+            ul.appendChild(li);
+
+            if (office.tenant) {
+                totalCost += office.price;
+            }
+        }
+
+
+        let totalDiv = document.getElementById('total-cost');
+        if(!totalDiv) {
+            totalDiv = document.createElement('div');
+            totalDiv.id = 'total-cost';
+            totalDiv.className = 'total-cost';
+            document.getElementById('office-list').parentNode.appendChild(totalDiv);
+        }
+        totalDiv.innerHTML = `<h2>Общая стоимость аренды: ${totalCost} руб./мес.</h2>`;
+    });
+}
+
+function booking(officeNumber) {
+    const url = '/lab6/json-rpc-api/';
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'booking',
+        'params': officeNumber,
+        'id': Math.round(Math.random()*1000)
+    };
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        if(data.error) {
+            switch(data.error.code) {
+                case 1:
+                    alert('Вы не авторизованны, пожалуйста, авторизуйтесь!');
+                    break;
+                case 2:
+                    alert('Офис уже арендуется');
+                    break;
+                case -32601:
+                    alert('Странная ошибка');
+                    break;
+            }
+        }
+        else {
+            document.getElementById('office-list').innerHTML = '';
+            getOfficeList();
+        }
+        
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    getOfficeList();
+});
+</script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="page-title">Список кабинетов</h1>
+    <ul id="office-list" class="office-list"></ul>
+{% endblock %}
