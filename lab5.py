@@ -69,7 +69,7 @@ def register():
         cur.execute("INSERT INTO users (login, password) VALUES (?, ?);", (login, password_hash))
 
     db_close(conn, cur)
-    return render_template('lab5/success.html', login=login)
+    return render_template('lab5/succes.html', login=login)
 
 
 @lab5.route('/lab5/login', methods=['GET', 'POST'])
@@ -122,8 +122,7 @@ def list_articles():
 
     db_close(conn, cur)
 
-    if not articles:
-        return render_template('lab5/list.html', message="У вас нет статей. Создайте свою статью!")
+
 
     return render_template('lab5/articles.html', articles=articles)
 
@@ -152,9 +151,93 @@ def create():
     cur.execute("SELECT id FROM users WHERE login=%s;", (login,))
     login_id = cur.fetchone()["id"]
 
-    cur.execute("INSERT INTO articles(user_id, titke, article_text, is_public, is_favorite) VALUES (%s, %s, %s, %s, %s);", 
+    cur.execute("INSERT INTO articles(user_id, title, article_text, is_public, is_favorite) VALUES (%s, %s, %s, %s, %s);", 
                 (login_id, title, article_text, is_public, is_favorite))
 
     db_close(conn, cur)
 
     return redirect('/lab5')
+
+@lab5.route('/lab5/logout')
+def logout():
+    session.pop('login', None)
+    return redirect('/lab5')
+
+
+
+@lab5.route('/lab5/edit/<int:article_id>', methods=['GET', 'POST'])
+def edit_article(article_id):
+    login = session.get('login')
+    if not login:
+        return redirect('/lab5/login')
+
+    conn, cur = db_connect()
+
+    cur.execute("SELECT * FROM articles WHERE id=%s;", (article_id,))
+    article = cur.fetchone()
+
+
+    if request.method == 'POST':
+        title = request.form.get('title')
+        article_text = request.form.get('article_text')
+        is_public = request.form.get('is_public') == 'on'
+        is_favorite = request.form.get('is_favorite') == 'on'
+
+        cur.execute(
+            "UPDATE articles SET title=%s, article_text=%s, is_public=%s, is_favorite=%s WHERE id=%s;",
+            (title, article_text, is_public, is_favorite, article_id)
+        )
+        db_close(conn, cur)
+        return redirect('/lab5')
+
+    db_close(conn, cur)
+    return render_template('lab5/edit.article.html', article=article)
+
+
+
+@lab5.route('/lab5/delete/<int:article_id>')
+def delete(article_id):
+    login = session.get('login')
+    if not login:
+        return redirect('/lab5/login')
+
+    conn, cur = db_connect()
+
+    cur.execute("DELETE FROM articles WHERE id=%s AND user_id=(SELECT id FROM users WHERE login=%s);", (article_id, login))
+    db_close(conn, cur)
+
+    return redirect('/lab5/list')
+
+
+@lab5.route('/lab5/user_logins')
+def user_logins():
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT login FROM users;")
+    else:
+        cur.execute("SELECT login FROM users;")
+
+    users = [row['login'] for row in cur.fetchall()]
+    db_close(conn, cur)
+
+    return render_template('lab5/user_logins.html', users=users)
+
+
+@lab5.route('/lab5/public_articles')
+def public_articles():
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute(
+            "SELECT a.title, a.article_text, u.login FROM articles a JOIN users u ON a.user_id = u.id WHERE a.is_public=true;"
+        )
+    else:
+        cur.execute(
+            "SELECT a.title, a.article_text, u.login FROM articles a JOIN users u ON a.user_id = u.id WHERE a.is_public=1;"
+        )
+
+    articles = cur.fetchall()
+    db_close(conn, cur)
+
+    return render_template('lab5/public.articles.html', articles=articles)
