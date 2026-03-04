@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block lab %}РГЗ - {{ employee.full_name }}{% endblock %}
+
+{% block main %}
+<style>
+    .card-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #3498db;
+    }
+    
+    .employee-info {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 15px;
+        margin: 25px 0;
+    }
+    
+    .info-label {
+        font-weight: bold;
+        color: #34495e;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 5px;
+    }
+    
+    .info-value {
+        padding: 8px;
+        color: #2c3e50;
+        border-bottom: 1px solid #ecf0f1;
+    }
+    
+    .probation-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+    
+    .probation-yes {
+        background: #ffeaa7;
+        color: #d35400;
+    }
+    
+    .probation-no {
+        background: #d4edda;
+        color: #27ae60;
+    }
+    
+    .gender-icon {
+        font-size: 1.2em;
+        margin-right: 5px;
+    }
+    
+    .actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #ecf0f1;
+    }
+    
+    .btn-edit {
+        padding: 12px 30px;
+        background: #f39c12;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    
+    .btn-edit:hover {
+        background: #e67e22;
+    }
+    
+    .btn-delete {
+        padding: 12px 30px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-size: 1em;
+    }
+    
+    .btn-delete:hover {
+        background: #c0392b;
+    }
+    
+    .btn-back {
+        display: inline-block;
+        margin-top: 20px;
+        color: #7f8c8d;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .btn-back:hover {
+        color: #3498db;
+    }
+    
+    .section-title {
+        color: #2c3e50;
+        margin: 20px 0 10px;
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="card-container">
+    <h1>Карточка сотрудника</h1>
+    
+    <div class="employee-info">
+        <div class="info-label">ID:</div>
+        <div class="info-value">#{{ employee.id }}</div>
+        
+        <div class="info-label">ФИО:</div>
+        <div class="info-value">{{ employee.full_name }}</div>
+        
+        <div class="info-label">Должность:</div>
+        <div class="info-value">{{ employee.position }}</div>
+        
+        <div class="info-label">Пол:</div>
+        <div class="info-value">
+            {% if employee.gender == 'male' %}
+            <span class="gender-icon">👨</span> Мужской
+            {% else %}
+            <span class="gender-icon">👩</span> Женский
+            {% endif %}
+        </div>
+        
+        <div class="info-label">Телефон:</div>
+        <div class="info-value">{{ employee.phone }}</div>
+        
+        <div class="info-label">Email:</div>
+        <div class="info-value">{{ employee.email }}</div>
+        
+        <div class="info-label">Испытательный срок:</div>
+        <div class="info-value">
+            {% if employee.probation %}
+            <span class="probation-badge probation-yes">Да</span>
+            {% else %}
+            <span class="probation-badge probation-no">Нет</span>
+            {% endif %}
+        </div>
+        
+        <div class="info-label">Дата приема:</div>
+        <div class="info-value">{{ employee.hire_date.strftime('%d.%m.%Y') }}</div>
+        
+        <div class="info-label">Стаж:</div>
+        <div class="info-value">
+            {% set days = (now - employee.hire_date).days %}
+            {% if days < 30 %}
+                {{ days }} дней
+            {% elif days < 365 %}
+                {{ (days // 30) }} месяцев
+            {% else %}
+                {{ (days // 365) }} лет
+            {% endif %}
+        </div>
+    </div>

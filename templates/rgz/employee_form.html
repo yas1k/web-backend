@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block lab %}РГЗ - {{ 'Редактирование' if employee else 'Новый' }} сотрудник{% endblock %}
+
+{% block main %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #3498db;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #34495e;
+        font-weight: 500;
+    }
+    
+    .form-group input, 
+    .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+    
+    .form-group.checkbox {
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-group.checkbox input {
+        width: auto;
+        margin-right: 10px;
+    }
+    
+    .form-group.checkbox label {
+        margin-bottom: 0;
+        display: inline;
+    }
+    
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    
+    .btn-save {
+        padding: 12px 30px;
+        background: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .btn-save:hover {
+        background: #229954;
+    }
+    
+    .btn-cancel {
+        padding: 12px 30px;
+        background: #95a5a6;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: background 0.3s;
+        text-align: center;
+    }
+    
+    .btn-cancel:hover {
+        background: #7f8c8d;
+    }
+    
+    .error-message {
+        background: #fee;
+        color: #c0392b;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #f5c6cb;
+        text-align: center;
+    }
+    
+    .required:after {
+        content: " *";
+        color: #e74c3c;
+    }
+</style>
+
+<div class="form-container">
+    <h1>{{ 'Редактирование' if employee else 'Добавление' }} сотрудника</h1>
+    
+    {% if error %}
+    <div class="error-message">{{ error }}</div>
+    {% endif %}
+    
+    <form method="POST" class="employee-form">
+        <div class="form-group">
+            <label class="required">ФИО:</label>
+            <input type="text" name="full_name" required 
+                   value="{{ employee.full_name if employee else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label class="required">Должность:</label>
+            <input type="text" name="position" required 
+                   value="{{ employee.position if employee else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label class="required">Пол:</label>
+            <select name="gender" required>
+                <option value="male" {% if employee and employee.gender == 'male' %}selected{% endif %}>Мужской</option>
+                <option value="female" {% if employee and employee.gender == 'female' %}selected{% endif %}>Женский</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="required">Телефон:</label>
+            <input type="tel" name="phone" required 
+                   value="{{ employee.phone if employee else '' }}"
+                   placeholder="+7 (999) 123-45-67">
+        </div>
+        
+        <div class="form-group">
+            <label class="required">Email:</label>
+            <input type="email" name="email" required 
+                   value="{{ employee.email if employee else '' }}"
+                   placeholder="employee@company.ru">
+        </div>
+        
+        <div class="form-group checkbox">
+            <label>
+                <input type="checkbox" name="probation" 
+                       {% if employee and employee.probation %}checked{% endif %}>
+                На испытательном сроке
+            </label>
+        </div>
+        
+        <div class="form-group">
+            <label class="required">Дата приема:</label>
+            <input type="date" name="hire_date" required 
+                   value="{{ employee.hire_date if employee else '' }}">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-save">Сохранить</button>
+            <a href="{{ url_for('rgz.index') }}" class="btn-cancel">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
