@@ -114,12 +114,6 @@
     .btn-back:hover {
         color: #3498db;
     }
-    
-    .section-title {
-        color: #2c3e50;
-        margin: 20px 0 10px;
-        font-size: 1.2em;
-    }
 </style>
 
 <div class="card-container">
@@ -161,16 +155,18 @@
         
         <div class="info-label">Дата приема:</div>
         <div class="info-value">{{ employee.hire_date.strftime('%d.%m.%Y') }}</div>
-        
-        <div class="info-label">Стаж:</div>
-        <div class="info-value">
-            {% set days = (now - employee.hire_date).days %}
-            {% if days < 30 %}
-                {{ days }} дней
-            {% elif days < 365 %}
-                {{ (days // 30) }} месяцев
-            {% else %}
-                {{ (days // 365) }} лет
-            {% endif %}
-        </div>
     </div>
+    
+    {% if is_auth %}
+    <div class="actions">
+        <a href="{{ url_for('rgz.employee_edit', id=employee.id) }}" class="btn-edit">✏️ Редактировать</a>
+        <form method="POST" action="{{ url_for('rgz.employee_delete', id=employee.id) }}" style="display:inline;" 
+              onsubmit="return confirm('Удалить сотрудника?')">
+            <button type="submit" class="btn-delete">🗑️ Удалить</button>
+        </form>
+    </div>
+    {% endif %}
+    
+    <a href="{{ url_for('rgz.index') }}" class="btn-back">← Вернуться к списку сотрудников</a>
+</div>
+{% endblock %}
